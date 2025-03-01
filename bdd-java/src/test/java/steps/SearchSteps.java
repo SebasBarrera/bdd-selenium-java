@@ -1,3 +1,5 @@
+package steps;
+
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -18,6 +20,7 @@ public class SearchSteps {
     @Before
     public void setUp() {
         try {
+            System.out.println("SETUP");
             System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--headless");
@@ -35,11 +38,13 @@ public class SearchSteps {
 
     @Given("I am on the Google search page")
     public void i_am_on_the_google_search_page() {
+        System.out.println("GIVEN");
         driver.get("https://www.google.com");
     }
 
     @When("I search for {string}")
     public void i_search_for(String term) {
+        System.out.println("WHEN");
         WebElement searchBox = driver.findElement(By.name("q"));
         searchBox.sendKeys(term);
         searchBox.submit();
@@ -47,11 +52,13 @@ public class SearchSteps {
 
     @Then("I should see {string} in the results")
     public void i_should_see_in_the_results(String term) {
+        System.out.println("THEN");
         assert driver.getPageSource().contains(term);
     }
 
     @After
     public void tearDown() {
+        System.out.println("AFTER");
         driver.quit();
     }
 }
